@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: 0;
+    font-family: "Merriweather";
+    font-size: 15px;
+    font-style: normal;
+}
+h1
+{
+    color: rgb(3, 3, 3);
+    text-align: center;
+    font-family: "Merriweather";
+    font-size: 50px;
+    font-style: normal;
+}
+html, body
+{
+    height: 100vh;
+    width: 100vw;
+}
+body 
+{  display: flex;
+    flex-direction: column;
+    align-items: center; 
+    height: 100%; 
+    justify-content:center;
+        background-image: url('../imagem.jpeg');
+    
+
+        position: fixed;
+        /* Fixa a textura ao fundo */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+       
+        /* Substitua pelo caminho da sua textura */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.9;
+        /* Ajuste a opacidade para suavizar a textura */
+        z-index: -1;
+        /* Coloca a textura atrás do conteúdo */
+    
+    
+ }
+ .quadrado 
+ {
+    width: 70%;  
+    height: 350px; 
+    border: 2px solid #000;  
+    display: flex;  
+    flex-direction: column; 
+    /* justify-content: space-between; */
+    align-items: center;  
+    padding: 10px;
+    background-color: rgb(252, 252, 252);
+    border-radius: 20px;
+}
+svg{
+    margin-right: 2%;
+}
+.top{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.corpo{
+    width: 80%;
+    display: flex;
+    flex-direction: column;  
+    justify-content: center;
+    align-items: start;    
+}
+#pergunta{
+    margin-bottom: 30px; 
+    width: 100%;
+    height: 30px;
+    font-size: 20px;
+    font-size: 13px;
+}
+section{
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.input-group
+{ 
+    width: 100%;
+    height: auto;
+    
+}
+.opcoes{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 80%;
+    height: 80%;
+    gap: 15px;
+}

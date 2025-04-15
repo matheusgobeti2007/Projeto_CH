@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="perguntas.css">
+</head>
+
+<body>
+    <header>
+        <h1>Perguntas do professor:</h1>
+    </header>
+    <section>
+        <div class="quadrado">
+            <div class="top">
+                <button id="submitButton">
+                    <svg width="25" height="25" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                        <path
+                            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11Z" />
+                        <path d="M6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="corpo">
+                <label for="pergunta">Faça aqui sua pergunta!</label>
+                <input id="pergunta" type="text" placeholder="Digite aqui sua pergunta">
+
+                <div class="opcoes">
+                    <select id="dificuldade">
+                        <option value="facil">Fácil</option>
+                        <option value="medio">Médio</option>
+                        <option value="dificil">Difícil</option>
+                      </select>                      
+                    <div>
+                        <input id="opcao1" type="radio" name="respostas" value="1">
+                        <input type="text" placeholder="Digite a primeira respota">
+                    </div>
+                    <div>
+
+                        <input id="opcao2" type="radio" name="respostas" value="2">
+                        <input type="text" placeholder="Digite a segunda respota">
+                    </div>
+                    <div> 
+                        <input id="opcao3" type="radio" name="respostas" value="3">
+                        <input type="text" placeholder="Digite a terceira respota">
+                    </div>
+                    <div> 
+                        <input id="opcao4" type="radio" name="respostas" value="4">
+                        <input type="text" placeholder="Digite a quarta respota">
+                    </div>
+                    <div>
+                        <input id="opcao5" type="radio" name="respostas" value="5">
+                        <input type="text" placeholder="Digite a quinta respota">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="./perguntas.js"></script>
+</body>
+
+</html>
