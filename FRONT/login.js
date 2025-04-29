@@ -8,7 +8,7 @@ botao.addEventListener('click', async (event) => {
     if (email !== '' && senha !== '') {
         try {
             //Login com o usuário
-            let resposta = await fetch('http://192.168.1.30:8080/login', {
+            let resposta = await fetch('http://192.168.1.26:8080/login', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -61,7 +61,7 @@ document.querySelector('#botaoCadastrar').addEventListener('click', async functi
 
     try {
         // Requisição para cadastrar o usuário
-        const res = await fetch('http://192.168.1.30:8080/aluno/novo', {
+        const res = await fetch('http://192.168.1.26:8080/aluno/novo', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

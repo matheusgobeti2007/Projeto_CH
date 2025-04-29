@@ -1,80 +1,100 @@
-const quizData = [
-    {
-      question: "Qual é a capital do Brasil?",
-      options: ["São Paulo", "Brasília", "Rio de Janeiro", "Salvador"],
-      correct: 1
-    },
-    {
-      question: "Quantos planetas há no sistema solar?",
-      options: ["7", "8", "9", "10"],
-      correct: 1
-    },
-    {
-      question: "Quem escreveu 'Dom Casmurro'?",
-      options: ["Machado de Assis", "José de Alencar", "Carlos Drummond", "Clarice Lispector"],
-      correct: 0
-    }
+let questoes = [];
+let respostas = {};
+let indiceAtual = 0;
+
+// Carregar questões e respostas salvas
+async function carregarQuestoes() {
+  const response = await fetch('http://192.168.1.26:8080/quiz/responder');
+  questoes = await response.json();
+
+  // Tentar carregar respostas salvas do localStorage
+  const respostasSalvas = localStorage.getItem("respostas");
+  if (respostasSalvas) {
+    respostas = JSON.parse(respostasSalvas);
+  }
+
+  exibirQuestao();
+}
+
+function exibirQuestao() {
+  const container = document.getElementById("questao-container");
+  const questao = questoes[indiceAtual];
+
+  const alternativas = [
+    questao.opcao1,
+    questao.opcao2,
+    questao.opcao3,
+    questao.opcao4,
   ];
 
-  let currentQuestion = 0;
-  let score = 0;
+  let alternativasHtml = alternativas.map((alt, i) => {
+    const checked = respostas[questao.id] === alt ? "checked" : "";
+    const letra = String.fromCharCode(65 + i); 
+    return `
+      <label>
+        <input type="radio" name="resposta" value="${alt}" ${checked}>
+        <strong>${letra})</strong> ${alt}
+      </label><br>
+    `;
+  }).join("");
 
-  const questionEl = document.getElementById('questao');
-  const optionsEl = document.getElementById('opcao');
-  const nextBtn = document.getElementById('btn');
-  const scoreEl = document.getElementById('rank');
+  container.innerHTML = `
+    <p><strong>${indiceAtual + 1}. ${questao.questao}</strong></p>
+    ${alternativasHtml}
+  `;
 
-  function loadQuestion() {
-    const q = quizData[currentQuestion];
-    questionEl.textContent = q.question;
-    optionsEl.innerHTML = '';
+  atualizarBotoes();
+}
 
-    q.options.forEach((opt, index) => {
-      const btn = document.createElement('button');
-      btn.classList.add('option');
-      btn.textContent = opt;
-      btn.addEventListener('click', () => selectOption(btn, index));
-      optionsEl.appendChild(btn);
-    });
+function atualizarBotoes() {
+  document.getElementById("btnAnterior").disabled = indiceAtual === 0;
+  document.getElementById("btnProxima").style.display = (indiceAtual < questoes.length - 1) ? "inline-block" : "none";
+  document.getElementById("btnFinalizar").style.display = (indiceAtual === questoes.length - 1) ? "inline-block" : "none";
+}
 
-    nextBtn.style.display = 'none';
-    scoreEl.textContent = '';
+document.getElementById("btnProxima").addEventListener("click", () => {
+  salvarResposta();
+  if (indiceAtual < questoes.length - 1) {
+    indiceAtual++;
+    exibirQuestao();
   }
+});
 
-  function selectOption(button, selectedIndex) {
-    const q = quizData[currentQuestion];
-    const buttons = document.querySelectorAll('.option');
-
-    buttons.forEach((btn, i) => {
-      btn.disabled = true;
-      if (i === q.correct) btn.classList.add('correct');
-      else if (i === selectedIndex) btn.classList.add('wrong');
-    });
-
-    if (selectedIndex === q.correct) {
-      score++;
-      scoreEl.textContent = "✅ Resposta correta!";
-    } else {
-      scoreEl.textContent = "❌ Resposta errada!";
-    }
-
-    nextBtn.style.display = 'inline-block';
+document.getElementById("btnAnterior").addEventListener("click", () => {
+  salvarResposta();
+  if (indiceAtual > 0) {
+    indiceAtual--;
+    exibirQuestao();
   }
+});
 
-  nextBtn.addEventListener('click', () => {
-    currentQuestion++;
-    if (currentQuestion < quizData.length) {
-      loadQuestion();
-    } else {
-      showFinalScore();
+// Corrigir prova
+document.getElementById("prova").addEventListener("submit", (event) => {
+  event.preventDefault();
+  salvarResposta();
+  let acertos = 0;
+
+  questoes.forEach((questao) => {
+    if (respostas[questao.id] === questao.correta) {
+      acertos++;
     }
   });
 
-  function showFinalScore() {
-    questionEl.textContent = "Quiz finalizado!";
-    optionsEl.innerHTML = '';
-    scoreEl.innerHTML = `<strong>Você acertou ${score} de ${quizData.length} perguntas!</strong>`;
-    nextBtn.style.display = 'none';
-  }
+  // Exibe o resultado final
+  document.getElementById("resultado").innerText = `Você acertou ${acertos} de ${questoes.length} questões.`;
+  document.getElementById("prova").style.display = "none";
 
-  loadQuestion();
+  // Limpa localStorage após finalizar
+  localStorage.removeItem("respostas");
+});
+
+// Salvar resposta do usuário e armazenar no localStorage
+function salvarResposta() {
+  const selecionado = document.querySelector('input[name="resposta"]:checked');
+  if (selecionado) {
+    respostas[questoes[indiceAtual].id] = selecionado.value;
+    localStorage.setItem("respostas", JSON.stringify(respostas));
+  }
+}
+
+carregarQuestoes();

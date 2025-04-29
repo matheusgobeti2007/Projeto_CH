@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Interativo</title>
-  <link rel="stylesheet" href="quiz.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="./quiz.css" />
 </head>
 <body>
+  <div class="container">
+    <h1>Quiz de Perguntas</h1>
 
-  <div class="quiz-container">
-    <div class="questao" id="questao">Carregando...</div>
-    <div class="opcao" id="opcao"></div>
-    <button class="btn" id="btn">Próxima</button>
-    <div class="rank" id="rank"></div>
+    <form id="prova">
+      <div id="questao-container" class="questao"></div>
+
+      <div class="botoes">
+        <button type="button" id="btnAnterior">Anterior</button>
+        <button type="button" id="btnProxima">Próxima</button>
+        <button type="submit" id="btnFinalizar" style="display: none;">Finalizar</button>
+      </div>
+    </form>
+
+    <div id="resultado" class="resultado"></div>
   </div>
 
-  <script src="quiz.js"></script>
+  <script src="./quiz.js"></script>
 </body>
 </html>
