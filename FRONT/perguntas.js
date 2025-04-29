@@ -1,7 +1,7 @@
 document.getElementById("submitButton").addEventListener("click", async function () {
     let pergunta = document.getElementById("pergunta").value;
 
-    let respostasMarcadas = document.querySelector('input[type="radio"]:checked');
+    let respostasMarcadas = document.querySelector('#respc').value;
 
     // let respostas = respostasMarcadas.map(id => document.getElementById(id).value);
 
@@ -23,7 +23,7 @@ document.getElementById("submitButton").addEventListener("click", async function
         opcao2: opcao2,
         opcao3: opcao3,
         opcao4: opcao4,
-        correta: respostasMarcadas.id, 
+        correta: respostasMarcadas, 
         dificuldade: dificuldade
     };
 
